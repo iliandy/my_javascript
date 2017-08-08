@@ -1,0 +1,10 @@
+.container {
+  text-align: center;
+}
+
+.tz_block {
+  display: inline-block;
+  padding: 1%;
+  border: 1px solid black;
+  margin: 1%;
+}

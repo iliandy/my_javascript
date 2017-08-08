@@ -1,0 +1,11 @@
+<div class="container">
+  <h3>US Time Zone Display</h3>
+  <button class="tz_block" (click)="changeTZ()">PST</button>
+  <button class="tz_block">MST</button>
+  <button class="tz_block">CST</button>
+  <button class="tz_block">EST</button>
+  <button class="tz_block">Clear</button>
+
+  <h4>{{ dateTime | date:"medium" }}</h4>
+
+</div>

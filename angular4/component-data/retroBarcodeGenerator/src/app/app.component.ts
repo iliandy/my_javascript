@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  colors = ["DodgerBlue", "Gold", "LightGray", "LimeGreen", "Magenta", "OrangeRed", "RoyalBlue", "Orange"];
+  colors: string[] = ["DodgerBlue", "Gold", "LightGray", "LimeGreen", "Magenta", "OrangeRed", "RoyalBlue", "Orange"];
 
-  shuffle(array) {
+  shuffle(array: string[]): Array<string>{
     let counter = array.length;
     // While there are elements in the array
     while (counter > 0) {
