@@ -6,10 +6,31 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  dateTime = Date.now();
+  dateTime = new Date();
+  selectedTZ = null;
 
-  changeTZ() {
-    console.log("working...")
+  changeTZ(timezone) {
+    this.dateTime = new Date();
+
+    switch(timezone) {
+      case "PST":
+        this.dateTime.setHours(this.dateTime.getHours() + 2);
+        break;
+      case "MST":
+        this.dateTime.setHours(this.dateTime.getHours() + 1);
+        break;
+      case "EST":
+        this.dateTime.setHours(this.dateTime.getHours() - 1);
+        break;
+      default:
+        this.dateTime.setHours(this.dateTime.getHours() + 0);
+    }
+
+  this.selectedTZ = timezone;
   }
 
+  clear() {
+    this.selectedTZ = null;
+    this.dateTime = null;
+  }
 }
