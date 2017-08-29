@@ -330,4 +330,3 @@ logTitle('Learning ES6');
 
 // Generators
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-hi
