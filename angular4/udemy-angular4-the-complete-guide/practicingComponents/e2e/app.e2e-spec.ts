@@ -1,10 +1,10 @@
-import { PracticingComponentsPage } from './app.po';
+import { AppPage } from './app.po';
 
 describe('practicing-components App', () => {
-  let page: PracticingComponentsPage;
+  let page: AppPage;
 
   beforeEach(() => {
-    page = new PracticingComponentsPage();
+    page = new AppPage();
   });
 
   it('should display welcome message', () => {
