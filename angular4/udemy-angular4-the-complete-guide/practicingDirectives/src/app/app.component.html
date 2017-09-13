@@ -1,7 +1,9 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12 col-lg-4">
-      <button type="button" class="btn btn-primary" name="button" (click)="toggleDisplay()">Display Details</button>
+      <button type="button"
+        class="btn btn-primary"
+        (click)="toggleDisplay()">Display Details</button>
       <p *ngIf="showDetails">Angular 4 hello world!</p>
       <p *ngFor="let timeStamp of clicks; let i = index"
         [ngStyle]="{backgroundColor: i >= 4 ? 'royalblue' : 'transparent'}"
