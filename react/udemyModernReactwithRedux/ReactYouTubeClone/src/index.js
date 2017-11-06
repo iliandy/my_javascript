@@ -48,4 +48,4 @@ class App extends Component {
 }
 
 // place component generated HTML and put it into page/DOM
-ReactDOM.render(<App/>, document.querySelector(".container"));
+ReactDOM.render(<App/>, document.getElementById("root"));
