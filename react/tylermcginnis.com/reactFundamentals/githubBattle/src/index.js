@@ -1,17 +1,9 @@
 import React, {Component} from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-
-class App extends Component {
-  render() {
-    return (
-      <div>
-        Hi React Training!
-      </div>
-    )
-  }
-}
+import App from "./components/App";
 
 ReactDOM.render(
-  <App />, document.getElementById("root")
+  <App />,
+  document.getElementById("root")
 );
