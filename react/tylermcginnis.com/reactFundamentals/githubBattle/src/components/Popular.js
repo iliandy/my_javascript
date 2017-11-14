@@ -1,41 +1,19 @@
 import React, {Component} from "react";
+import PropTypes from "prop-types";
+import api from "../utils/api";
 
-class Popular extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedLang: "All"
-    };
-
-    this.updateLang = this.updateLang.bind(this);
-  }
-
-  updateLang(lang) {
-    this.setState(() => {
-      return {
-        selectedLang: lang
-      }
-    });
-  }
 
 
   render() {
-    const languages = ["All", "JavaScript", "Ruby", "Java", "CSS", "Python"];
-
     console.log(`Selected Language: ${this.state.selectedLang}`);
     return (
-      <ul className="languages">
-        {languages.map((lang) => {
-          return (
-            <li
-              style={lang === this.state.selectedLang ? {color: "#d0021b"}: null}
-              onClick={this.updateLang.bind(null, lang)}
-              key={lang}>
-                {lang}
-            </li>
-          )
-        })}
-      </ul>
+      <div>
+        <SelectLanguage
+          selectedLang={this.state.selectedLang}
+          onSelect={this.updateLang}
+        />
+        <RepoGrid repos={this.state.repos} />
+      </div>
     )
   }
 }
