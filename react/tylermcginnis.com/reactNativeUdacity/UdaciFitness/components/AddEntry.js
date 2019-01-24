@@ -13,7 +13,7 @@ import {
 } from "../utils/helpers"
 import DateHeader from "./DateHeader"
 import UdaciSlider from "./UdaciSlider"
-import UdaciStepper from "./UdaciStepper"
+import UdaciSteppers from "./UdaciSteppers"
 import { Ionicons } from "@expo/vector-icons"
 import TextButton from "./TextButton"
 import { removeEntry, submitEntry } from "../utils/api"
@@ -191,7 +191,7 @@ class AddEntry extends Component {
                   {...rest}
                 />
               ) : (
-                <UdaciStepper
+                <UdaciSteppers
                   value={value}
                   onIncrement={() => this.increment(key)}
                   onDecrement={() => this.decrement(key)}
