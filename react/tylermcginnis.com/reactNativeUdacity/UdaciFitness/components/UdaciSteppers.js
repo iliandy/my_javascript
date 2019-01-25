@@ -9,7 +9,7 @@ import {
 import { Entypo, FontAwesome } from "@expo/vector-icons"
 import { gray, purple, white } from "../utils/colors"
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     flex: 1,
@@ -33,6 +33,14 @@ const styles = StyleSheet.create({
     width: 85,
     justifyContent: "center",
     alignItems: "center",
+  },
+  valueText: {
+    fontSize: 24,
+    textAlign: "center",
+  },
+  unitText: {
+    fontSize: 18,
+    color: gray,
   },
 })
 
@@ -82,8 +90,8 @@ export default (UdaciStepper = ({
         </View>
       )}
       <View style={styles.metricCounter}>
-        <Text style={{ fontSize: 24, textAlign: "center" }}>{value}</Text>
-        <Text style={{ fontSize: 18, color: gray }}>{unit}</Text>
+        <Text style={styles.valueText}>{value}</Text>
+        <Text style={styles.unitText}>{unit}</Text>
       </View>
     </View>
   )
