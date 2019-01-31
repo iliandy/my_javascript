@@ -1,17 +1,15 @@
 import React from "react"
-import { Platform, View } from "react-native"
-import AddEntry from "./components/AddEntry"
 import { createStore } from "redux"
 import { Provider } from "react-redux"
-import reducer from "./reducers"
-import History from "./components/History"
-import {
-  createAppContainer,
-  createBottomTabNavigator,
-  createMaterialBottomTabNavigator,
-} from "react-navigation"
-import { purple, white } from "./utils/colors"
+import { Platform, StatusBar, View } from "react-native"
+import { createAppContainer, createBottomTabNavigator } from "react-navigation"
+import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs"
+import { Constants } from "expo"
 import { FontAwesome, Ionicons } from "@expo/vector-icons"
+import AddEntry from "./components/AddEntry"
+import History from "./components/History"
+import { purple, white } from "./utils/colors"
+import reducer from "./reducers"
 
 const RouteConfigs = {
   History: {
@@ -19,7 +17,7 @@ const RouteConfigs = {
     navigationOptions: {
       tabBarLabel: "History",
       tabBarIcon: ({ tintColor }) => (
-        <Ionicons name="ios-bookmarks" size={30} color={tintColor} />
+        <Ionicons name="ios-bookmarks" size={25} color={tintColor} />
       ),
     },
   },
@@ -28,21 +26,21 @@ const RouteConfigs = {
     navigationOptions: {
       tabBarLabel: "Add Entry",
       tabBarIcon: ({ tintColor }) => (
-        <FontAwesome name="plus-square" size={30} color={tintColor} />
+        <FontAwesome name="plus-square" size={25} color={tintColor} />
       ),
     },
   },
 }
 
-const TabNavigationConfig = {
+const iosTabNavigatorConfig = {
   defaultNavigationOptions: {
     header: null,
   },
   tabBarOptions: {
-    activeTintColor: Platform.OS === "ios" ? purple : white,
+    activeTintColor: purple,
     style: {
       height: 56,
-      backgroundColor: Platform.OS === "ios" ? white : purple,
+      backgroundColor: white,
       shadowColor: "rgba(0, 0, 0, 0.24)",
       shadowOffset: {
         width: 0,
@@ -54,12 +52,39 @@ const TabNavigationConfig = {
   },
 }
 
+const androidTabNavigatorConfig = {
+  defaultNavigationOptions: {
+    header: null,
+  },
+  activeColor: white,
+  barStyle: {
+    height: 56,
+    backgroundColor: purple,
+    shadowColor: "rgba(0, 0, 0, 0.24)",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowRadius: 6,
+    shadowOpacity: 1,
+  },
+}
+
 const TabNavigator =
   Platform.OS === "ios"
-    ? createBottomTabNavigator(RouteConfigs, TabNavigationConfig)
-    : createMaterialBottomTabNavigator(RouteConfigs, TabNavigationConfig)
+    ? createBottomTabNavigator(RouteConfigs, iosTabNavigatorConfig)
+    : createMaterialBottomTabNavigator(RouteConfigs, androidTabNavigatorConfig)
 
 const Tabs = createAppContainer(TabNavigator)
+
+const UdaciStatusBar = ({ backgroundColor, ...props }) => {
+  return (
+    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+    </View>
+  )
+}
+
 export default class App extends React.Component {
   store = createStore(reducer)
 
@@ -67,6 +92,7 @@ export default class App extends React.Component {
     return (
       <Provider store={this.store}>
         <View style={{ flex: 1 }}>
+          <UdaciStatusBar backgroundColor={purple} barStyle="light-content" />
           <Tabs />
         </View>
       </Provider>
