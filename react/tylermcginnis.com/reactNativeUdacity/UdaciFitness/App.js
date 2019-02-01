@@ -13,6 +13,7 @@ import { FontAwesome, Ionicons } from "@expo/vector-icons"
 import AddEntry from "./components/AddEntry"
 import EntryDetail from "./components/EntryDetail"
 import History from "./components/History"
+import Live from "./components/Live"
 import { purple, white } from "./utils/colors"
 import reducer from "./reducers"
 
@@ -22,7 +23,11 @@ const RouteConfigs = {
     navigationOptions: {
       tabBarLabel: "History",
       tabBarIcon: ({ tintColor }) => (
-        <Ionicons name="ios-bookmarks" size={25} color={tintColor} />
+        <Ionicons
+          name={Platform.OS === "ios" ? "ios-bookmarks" : "md-bookmarks"}
+          size={25}
+          color={tintColor}
+        />
       ),
     },
   },
@@ -32,6 +37,19 @@ const RouteConfigs = {
       tabBarLabel: "Add Entry",
       tabBarIcon: ({ tintColor }) => (
         <FontAwesome name="plus-square" size={25} color={tintColor} />
+      ),
+    },
+  },
+  Live: {
+    screen: Live,
+    navigationOptions: {
+      tabBarLabel: "Live",
+      tabBarIcon: ({ tintColor }) => (
+        <Ionicons
+          name={Platform.OS === "ios" ? "ios-speedometer" : "md-speedometer"}
+          size={25}
+          color={tintColor}
+        />
       ),
     },
   },
