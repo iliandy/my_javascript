@@ -133,8 +133,7 @@ class AddEntry extends Component {
       sleep: 0,
       eat: 0,
     }))
-
-    // Navigate to home
+    this.props.navigation.goBack()
 
     submitEntry({ entry, key })
 
@@ -149,8 +148,7 @@ class AddEntry extends Component {
         [key]: getDailyReminderValue(),
       })
     )
-
-    // Navigate to home
+    this.props.navigation.goBack()
 
     removeEntry(key)
   }
@@ -159,7 +157,6 @@ class AddEntry extends Component {
     const metaInfo = getMetricMetaInfo()
 
     if (this.props.alreadyLogged) {
-      // if (true) {
       return (
         <View style={styles.center}>
           <Ionicons
