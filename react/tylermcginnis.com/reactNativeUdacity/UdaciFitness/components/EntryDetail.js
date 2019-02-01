@@ -2,7 +2,10 @@ import React, { Component } from "react"
 import { StyleSheet, Text, View } from "react-native"
 import { connect } from "react-redux"
 import MetricCard from "./MetricCard"
-// import { getDailyReminderValue, timeToString } from "../utils/helpers"
+import TextButton from "./TextButton"
+import { addEntry } from "../actions"
+import { getDailyReminderValue, timeToString } from "../utils/helpers"
+import { removeEntry } from "../utils/api"
 import { white } from "../utils/colors"
 
 const styles = StyleSheet.create({
@@ -25,16 +28,27 @@ class EntryDetail extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.metrics !== null && !nextProps.metrics.today
+  }
+
+  reset = () => {
+    const { entryId, goBack, remove } = this.props
+
+    remove()
+    goBack()
+    removeEntry(entryId)
+  }
+
   render() {
     const { metrics } = this.props
 
     return (
       <View style={styles.container}>
         <MetricCard metrics={metrics} />
-        <Text>
-          Entry Detail -{" "}
-          {JSON.stringify(this.props.navigation.state.params.entryId)}
-        </Text>
+        <TextButton style={{ margin: 20 }} onPress={this.reset}>
+          Reset
+        </TextButton>
       </View>
     )
   }
@@ -49,4 +63,22 @@ const mapStateToProps = (state, { navigation }) => {
   }
 }
 
-export default connect(mapStateToProps)(EntryDetail)
+const mapDispatchToProps = (dispatch, { navigation }) => {
+  const { entryId } = navigation.state.params
+
+  return {
+    remove: () =>
+      dispatch(
+        addEntry({
+          [entryId]:
+            timeToString() === entryId ? getDailyReminderValue() : null,
+        })
+      ),
+    goBack: () => navigation.goBack(),
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EntryDetail)
