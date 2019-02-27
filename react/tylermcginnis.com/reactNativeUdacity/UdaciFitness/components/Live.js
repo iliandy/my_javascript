@@ -79,7 +79,6 @@ export default class Live extends Component {
   componentDidMount() {
     Permissions.getAsync(Permissions.LOCATION)
       .then(({ status }) => {
-        debugger
         if (status === "granted") {
           return this.setLocation()
         }
@@ -133,21 +132,18 @@ export default class Live extends Component {
     if (status === null) {
       return <ActivityIndicator size="large" style={{ marginTop: 30 }} />
     }
-
-    debugger
-    if (status === "denied") {
-      return (
-        <View style={styles.center}>
-          <Foundation name="alert" size={50} />
-          <Text>
-            You denied location permissions. Enable location services for this
-            app.
-          </Text>
-        </View>
-      )
-    }
-
-    if (status === "undetermined") {
+    // if (status === "denied") {
+    //   return (
+    //     <View style={styles.center}>
+    //       <Foundation name="alert" size={50} />
+    //       <Text>
+    //         You denied location permissions. Enable location services for this
+    //         app.
+    //       </Text>
+    //     </View>
+    //   )
+    // }
+    if (status === "denied" || status === "undetermined") {
       return (
         <View style={styles.center}>
           <Foundation name="alert" size={50} />
@@ -158,21 +154,25 @@ export default class Live extends Component {
         </View>
       )
     }
-
+    // debugger
     return (
       <View style={styles.container}>
         <View style={styles.directionContainer}>
           <Text style={styles.header}>You're heading</Text>
-          <Text style={styles.direction}>{"North"}</Text>
+          <Text style={styles.direction}>{direction}</Text>
         </View>
         <View style={styles.metricContainer}>
           <View style={styles.metric}>
             <Text style={[styles.header, { color: white }]}>Altitude</Text>
-            <Text style={[styles.subHeader, { color: white }]}>3 feet</Text>
+            <Text style={[styles.subHeader, { color: white }]}>
+              {Math.round(coords.altitude * 3.28084)} Feet
+            </Text>
           </View>
           <View style={styles.metric}>
             <Text style={[styles.header, { color: white }]}>Speed</Text>
-            <Text style={[styles.subHeader, { color: white }]}>20 MPH</Text>
+            <Text style={[styles.subHeader, { color: white }]}>
+              {(coords.speed * 2.23694).toFixed(2)} MPH
+            </Text>
           </View>
         </View>
       </View>
