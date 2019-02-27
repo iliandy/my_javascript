@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import {
   ActivityIndicator,
+  Animated,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -71,6 +72,7 @@ const styles = StyleSheet.create({
 
 export default class Live extends Component {
   state = {
+    bounceValue: new Animated.Value(1),
     coords: null,
     direction: "",
     status: null,
@@ -115,7 +117,14 @@ export default class Live extends Component {
       },
       ({ coords }) => {
         const newDirection = calculateDirection(coords.heading)
-        const { direction } = this.state
+        const { bounceValue, direction } = this.state
+
+        if (newDirection !== direction) {
+          Animated.sequence([
+            Animated.timing(bounceValue, { duration: 200, toValue: 1.1 }),
+            Animated.spring(bounceValue, { toValue: 1, friction: 5 }),
+          ]).start()
+        }
 
         this.setState(() => ({
           coords,
@@ -127,7 +136,7 @@ export default class Live extends Component {
   }
 
   render() {
-    const { coords, direction, status } = this.state
+    const { bounceValue, coords, direction, status } = this.state
 
     if (status === null) {
       return <ActivityIndicator size="large" style={{ marginTop: 30 }} />
@@ -159,7 +168,11 @@ export default class Live extends Component {
       <View style={styles.container}>
         <View style={styles.directionContainer}>
           <Text style={styles.header}>You're heading</Text>
-          <Text style={styles.direction}>{direction}</Text>
+          <Animated.Text
+            style={[styles.direction, { transform: [{ scale: bounceValue }] }]}
+          >
+            {direction}
+          </Animated.Text>
         </View>
         <View style={styles.metricContainer}>
           <View style={styles.metric}>
