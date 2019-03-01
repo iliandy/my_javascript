@@ -1,11 +1,14 @@
 import React from "react"
-import { StyleSheet, View } from "react-native"
+import { AsyncStorage, StyleSheet, View } from "react-native"
 import {
   FontAwesome,
   MaterialIcons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons"
+import { Notifications, Permissions } from "expo"
 import { blue, lightPurp, orange, pink, red, white } from "./colors"
+
+const NOTIFICATION_KEY = "UdaciFitness:notifications"
 
 export const getDailyReminderValue = () => {
   return {
@@ -148,4 +151,54 @@ export function timeToString(time = Date.now()) {
     Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
   )
   return todayUTC.toISOString().split("T")[0]
+}
+
+export function clearLocalNotification() {
+  return AsyncStorage.removeItem(NOTIFICATION_KEY).then(
+    Notifications.cancelAllScheduledNotificationsAsync
+  )
+}
+
+function createNotification() {
+  return {
+    title: "Log your stats!",
+    body: "👋 Don't forget to log your stats for today!",
+    ios: {
+      sound: true,
+    },
+    android: {
+      sound: true,
+      priority: "high",
+      sticky: false,
+      vibrate: true,
+    },
+  }
+}
+
+export function setLocalNotification() {
+  AsyncStorage.getItem(NOTIFICATION_KEY)
+    .then(JSON.parse)
+    .then((data) => {
+      // debugger
+      if (data === null) {
+        Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
+          // debugger
+          if (status === "granted") {
+            Notifications.cancelAllScheduledNotificationsAsync()
+
+            let tomorrow = new Date()
+            tomorrow.setDate(tomorrow.getDate() + 1)
+            tomorrow.setHours(20)
+            tomorrow.setMinutes(0)
+
+            Notifications.scheduleLocalNotificationAsync(createNotification(), {
+              time: tomorrow,
+              repeat: "day",
+            })
+
+            AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
+          }
+        })
+      }
+    })
 }

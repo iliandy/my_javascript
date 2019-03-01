@@ -16,6 +16,7 @@ import History from "./components/History"
 import Live from "./components/Live"
 import { purple, white } from "./utils/colors"
 import reducer from "./reducers"
+import { setLocalNotification } from "./utils/helpers"
 
 const RouteConfigs = {
   History: {
@@ -128,6 +129,10 @@ const UdaciStatusBar = ({ backgroundColor, ...props }) => {
 
 export default class App extends React.Component {
   store = createStore(reducer)
+
+  componentDidMount() {
+    setLocalNotification()
+  }
 
   render() {
     return (
