@@ -163,7 +163,7 @@ export default class Live extends Component {
         </View>
       )
     }
-    // debugger
+
     return (
       <View style={styles.container}>
         <View style={styles.directionContainer}>
