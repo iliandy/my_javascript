@@ -48,14 +48,16 @@ export class ProductListComponent implements OnInit {
       : this.products
   }
 
-  constructor() {
-
-  }
+  constructor() {}
 
   ngOnInit(): void {
     console.log("In OnInit")
     this.filteredProducts = this.products
     this.listFilter = ""
+  }
+
+  onRatingClicked(message: string): void {
+    this.pageTitle = "Product List: " + message
   }
 
   performFilter(filterBy: string): IProduct[] {
