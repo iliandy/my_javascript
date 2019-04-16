@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core"
-import { IProduct } from "./product"
+import { IProduct } from "./product.interface"
 
 @Component({
   selector: "pm-products",
@@ -7,9 +7,10 @@ import { IProduct } from "./product"
   styleUrls: ["./product-list.component.css"],
 })
 export class ProductListComponent implements OnInit {
+  _listFilter: string
+  filteredProducts: IProduct[]
   imageWidth: number = 50
   imageMargin: number = 2
-  listFilter: string = ""
   pageTitle: string = "Product List"
   products: IProduct[] = [
     {
@@ -37,11 +38,36 @@ export class ProductListComponent implements OnInit {
   ]
   showImage: boolean = false
 
-  toggleImage = (): void => {
-    this.showImage = !this.showImage
+  get listFilter(): string {
+    return this._listFilter
+  }
+  set listFilter(value: string) {
+    this._listFilter = value
+    this.filteredProducts = this.listFilter
+      ? this.performFilter(this.listFilter)
+      : this.products
+  }
+
+  constructor() {
+
   }
 
   ngOnInit(): void {
     console.log("In OnInit")
+    this.filteredProducts = this.products
+    this.listFilter = ""
+  }
+
+  performFilter(filterBy: string): IProduct[] {
+    filterBy = filterBy.toLocaleLowerCase()
+
+    return this.products.filter(
+      (product: IProduct) =>
+        product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1
+    )
+  }
+
+  toggleImage = (): void => {
+    this.showImage = !this.showImage
   }
 }
