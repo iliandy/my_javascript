@@ -33,7 +33,8 @@ export class ProductListComponent implements OnInit {
     console.log("In OnInit")
     this.productService.getProducts().subscribe(
       (products) => {
-        ;(this.products = products), (this.filteredProducts = this.products)
+        this.products = products
+        this.filteredProducts = this.products
       },
       (error) => (this.errorMessage = <any>error)
     )
