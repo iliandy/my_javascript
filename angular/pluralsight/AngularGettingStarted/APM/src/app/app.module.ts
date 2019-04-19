@@ -6,12 +6,23 @@ import { RouterModule } from "@angular/router"
 
 import { AppComponent } from "./app.component"
 import { ConvertToSpacesPipe } from "./shared/convert-to-spaces.pipe"
-import { ProductDetailComponent } from "./products/product-detail.component"
-import { ProductDetailGuard } from "./products/product-detail.guard"
-import { ProductListComponent } from "./products/product-list.component"
+import { ProductDetailComponent } from "./product-detail/product-detail.component"
+import { ProductDetailGuard } from "./product-detail/product-detail.guard"
+import { ProductListComponent } from "./products/products.component"
 import { StarComponent } from "./shared/star.component"
 import { WelcomeComponent } from "./home/welcome.component"
 
+const routes = [
+  { path: "products", component: ProductListComponent },
+  {
+    path: "products/:id",
+    canActivate: [ProductDetailGuard],
+    component: ProductDetailComponent,
+  },
+  { path: "welcome", component: WelcomeComponent },
+  { path: "", redirectTo: "welcome", pathMatch: "full" },
+  { path: "**", redirectTo: "welcome", pathMatch: "full" },
+]
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,17 +36,7 @@ import { WelcomeComponent } from "./home/welcome.component"
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot([
-      { path: "products", component: ProductListComponent },
-      {
-        path: "products/:id",
-        canActivate: [ProductDetailGuard],
-        component: ProductDetailComponent,
-      },
-      { path: "welcome", component: WelcomeComponent },
-      { path: "", redirectTo: "welcome", pathMatch: "full" },
-      { path: "**", redirectTo: "welcome", pathMatch: "full" },
-    ]),
+    RouterModule.forRoot(routes),
   ],
   bootstrap: [AppComponent],
 })

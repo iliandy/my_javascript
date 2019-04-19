@@ -4,8 +4,8 @@ import { ProductService } from "./product.service"
 
 @Component({
   selector: "pm-products",
-  templateUrl: "./product-list.component.html",
-  styleUrls: ["./product-list.component.css"],
+  templateUrl: "./products.component.html",
+  styleUrls: ["./products.component.css"],
 })
 export class ProductListComponent implements OnInit {
   _listFilter: string
