@@ -8,6 +8,7 @@ import { AppComponent } from "./app.component"
 import { ConvertToSpacesPipe } from "./shared/convert-to-spaces.pipe"
 import { ProductDetailComponent } from "./product-detail/product-detail.component"
 import { ProductDetailGuard } from "./product-detail/product-detail.guard"
+import { ProductDetailResolver } from "./product-detail/product-detail.resolver"
 import { ProductListComponent } from "./products/products.component"
 import { StarComponent } from "./shared/star.component"
 import { WelcomeComponent } from "./home/welcome.component"
@@ -18,6 +19,7 @@ const routes = [
     path: "products/:id",
     canActivate: [ProductDetailGuard],
     component: ProductDetailComponent,
+    resolve: { productIds: ProductDetailResolver },
   },
   { path: "welcome", component: WelcomeComponent },
   { path: "", redirectTo: "welcome", pathMatch: "full" },
@@ -38,6 +40,7 @@ const routes = [
     HttpClientModule,
     RouterModule.forRoot(routes),
   ],
+  providers: [ProductDetailResolver],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
