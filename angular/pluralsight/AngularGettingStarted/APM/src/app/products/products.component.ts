@@ -7,7 +7,7 @@ import { ProductService } from "./product.service"
   templateUrl: "./products.component.html",
   styleUrls: ["./products.component.css"],
 })
-export class ProductListComponent implements OnInit {
+export class ProductsComponent implements OnInit {
   _listFilter: string
   errorMessage: string
   filteredProducts: IProduct[]

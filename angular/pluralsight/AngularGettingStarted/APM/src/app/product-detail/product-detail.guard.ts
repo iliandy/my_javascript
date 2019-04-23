@@ -17,7 +17,7 @@ export class ProductDetailGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    let id = +next.url[1].path
+    let id = +next.params.id
 
     if (isNaN(id) || id < 1) {
       alert("Invalid product Id")

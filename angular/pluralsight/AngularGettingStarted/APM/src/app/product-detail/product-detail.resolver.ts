@@ -9,7 +9,9 @@ import { Observable } from "rxjs"
 import { map } from "rxjs/operators"
 import { ProductService } from "../products/product.service"
 
-@Injectable()
+@Injectable({
+  providedIn: "root",
+})
 export class ProductDetailResolver implements Resolve<T> {
   productId: number
 
