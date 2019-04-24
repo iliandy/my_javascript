@@ -12,7 +12,7 @@ import { ProductService } from "../products/product.service"
 @Injectable({
   providedIn: "root",
 })
-export class ProductDetailResolver implements Resolve<T> {
+export class ProductDetailResolver implements Resolve<any> {
   productId: number
 
   constructor(private productService: ProductService, private router: Router) {}
