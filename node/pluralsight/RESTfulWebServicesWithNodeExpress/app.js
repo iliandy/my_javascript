@@ -5,15 +5,15 @@ const Book = require('./models/bookModel');
 const app = express();
 const db = mongoose.connect('mongodb://localhost/bookAPI');
 const port = process.env.PORT || 3000;
-const router = express.Router();
+const bookRouter = express.Router();
 
 app.get('/', (req, res) => {
   res.send('Hello Nodemon API!');
 });
 
-app.use('/api', router);
+app.use('/api', bookRouter);
 
-router.route('/books').get((req, res) => {
+bookRouter.route('/books').get((req, res) => {
   const query = {};
 
   if (req.query.genre) {
@@ -25,7 +25,7 @@ router.route('/books').get((req, res) => {
   });
 });
 
-router.route('/books/:bookId').get((req, res) => {
+bookRouter.route('/books/:bookId').get((req, res) => {
   Book.findById(req.params.bookId, (error, book) => {
     return error ? res.send(error) : res.json(book);
   });
