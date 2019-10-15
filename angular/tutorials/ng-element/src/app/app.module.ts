@@ -13,13 +13,11 @@ import { HelloWorldComponent } from './hello-world/hello-world.component';
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(private injector: Injector) {}
+  constructor(private injector: Injector) {
+    const el = createCustomElement(AppComponent, { injector });
 
-  ngDoBootstrap() {
-    const el = createCustomElement(AppComponent, { injector: this.injector });
-    const el2 = createCustomElement(HelloWorldComponent, { injector: this.injector });
-
-    customElements.define('my-own-element', el);
-    customElements.define('hello-world', el2);
+    customElements.define('my-ng-element', el);
   }
+
+  ngDoBootstrap() {}
 }

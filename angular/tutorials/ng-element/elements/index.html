@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link type="text/css" href="styles.css" />
+  </head>
+  <body>
+    <div>
+      Here is an Angular Element:
+      <my-ng-element></my-ng-element>
+    </div>
+    <script src="elements.js"></script>
+    <script>
+      let inputData = { text: 'My ng element' };
+      let myNgElement = document.querySelector('my-ng-element');
+      myNgElement.data = inputData;
+    </script>
+  </body>
+</html>
