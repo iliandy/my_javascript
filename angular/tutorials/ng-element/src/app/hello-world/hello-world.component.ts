@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-hello-world',
@@ -6,9 +6,16 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./hello-world.component.scss'],
 })
 export class HelloWorldComponent implements OnInit {
-  @Input() helloData: any = { text: 'Hello world' };
+  @Input() helloInputData: any = { text: 'Hello world' };
+  @Output() helloOutputData: any = new EventEmitter();
 
   constructor() {}
+
+  handleClick() {
+    const submitResponse: any = { data: 'Submit response...' };
+    console.log(`Hello Component submit response:\n${JSON.stringify(submitResponse)}`);
+    this.helloOutputData.emit(submitResponse);
+  }
 
   ngOnInit() {}
 }

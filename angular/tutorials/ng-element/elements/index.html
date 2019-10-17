@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link type="text/css" href="styles.css" />
+    <title>Angular Element Proof of Concept with Input and Output Data</title>
   </head>
   <body>
     <div>
-      Here is an Angular Element:
       <my-ng-element></my-ng-element>
     </div>
     <script src="elements.js"></script>
     <script>
-      const inputData = { text: 'My ng element' };
       const myNgElement = document.querySelector('my-ng-element');
-      myNgElement.data = inputData;
+      const inputData = { text: 'My ng element' };
+
+      myNgElement.inputData = inputData;
+      myNgElement.addEventListener('outputData', (event) => {
+        console.log(`ng Element output data:\n${JSON.stringify(event.detail)}`);
+        this.ngElementData = event.detail;
+        // localStorage.setItem('ngElementData', JSON.stringify(event.detail));
+      });
     </script>
   </body>
 </html>

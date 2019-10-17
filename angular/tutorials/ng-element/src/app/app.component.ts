@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +6,11 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  @Input() data: any = { text: 'App world' };
+  @Input() inputData: any = { text: 'App world' };
+  @Output() outputData: any = new EventEmitter();
+
+  handleHelloOutputData(response) {
+    console.log(`App Component response from Hello Component output emitted event:\n${JSON.stringify(response)}`);
+    this.outputData.emit(response);
+  }
 }
