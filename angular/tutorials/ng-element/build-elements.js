@@ -1,5 +1,5 @@
-const fs = require('fs-extra');
 const concat = require('concat');
+const fs = require('fs-extra');
 
 (async function build() {
   const files = [
